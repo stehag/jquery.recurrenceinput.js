@@ -1,6 +1,10 @@
 jQuery recurrenceinput widget
 =============================
 
+About this clone: Forked in order to remove jquery-tools dependency.
+
+
+
 jQuery plugin widget which support the definition of complex recurrence
 rulesets based on RFC5545, the iCalendar standard.
 
