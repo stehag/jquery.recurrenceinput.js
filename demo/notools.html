@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+    <title>JQuery.RecurrenceInput Demo</title>
+
+    <link type="text/css" href="../lib/jquery.tools.dateinput.css" rel="stylesheet"></link>
+    <link type="text/css" href="../src/jquery.recurrenceinput.css" rel="stylesheet"></link>
+    <link rel='stylesheet' href='http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css' />
+    
+    
+    <script src='http://current/dev/jcal/build/out/jquery.js'></script>
+	<script src='http://current/dev/jcal/build/out/jquery-ui.js'></script>
+	<script src='http://current/dev/jcal/lib/jquery.pubsub.js'></script>
+    
+    <script type="text/javascript" src="../lib/jquery.tmpl-beta1.js"></script>
+    <script type="text/javascript" src="../src/jquery.recurrenceinput.js"></script>
+
+    <!-- Because IE8 doesn't support box-shadow, I simply put in a 2px border instead. -->
+    <!--[if IE]>
+        <style type="text/css">
+            div.riform {
+                border: 2px solid black;
+            }
+        </style>
+    <![endif]-->
+
+
+</head>
+
+<body>
+<center>
+    <h2>Minimal setup</h2>
+
+    <!-- Make a text area for the RRULE, which also works as a
+         non-javascript fallback -->
+    
+    <div id="container">
+    
+    <div id="repeat" name="repeat"></div>    
+    
+    </div>
+    
+    
+    
+    <!-- Make the text area a recurrenceinput -->
+    <script type="text/javascript">
+        $("#repeat").recurrenceinput({startDate: "2013-10-29"});
+    </script>
+</center>
+</body>
+</html>

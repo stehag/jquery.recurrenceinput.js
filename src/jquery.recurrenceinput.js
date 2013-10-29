@@ -3,17 +3,18 @@
 "use strict";
 
 (function ($) {
-    $.tools = $.tools || {version: '@VERSION'};
 
     var tool;
     var LABELS = {};
-
-    tool = $.tools.recurrenceinput = {
+    var tools = {};
+    
+    
+    tool = tools.recurrenceinput = {
         conf: {
 
             lang: 'en',
             readOnly: false,
-            firstDay: 0,
+            firstDay: 1,
 
             // "REMOTE" FIELD
             startField: null,
@@ -42,18 +43,6 @@
                     rrule: 'FREQ=DAILY',
                     fields: [
                         'ridailyinterval',
-                        'rirangeoptions'
-                    ]
-                },
-                mondayfriday: {
-                    rrule: 'FREQ=WEEKLY;BYDAY=MO,FR',
-                    fields: [
-                        'rirangeoptions'
-                    ]
-                },
-                weekdays: {
-                    rrule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
-                    fields: [
                         'rirangeoptions'
                     ]
                 },
@@ -105,83 +94,83 @@
     };
 
     tool.localize("en", {
-        displayUnactivate: 'Does not repeat',
-        displayActivate: 'Repeats every',
+        displayUnactivate: 'Inga upprepningar',
+        displayActivate: 'Upprepas varje',
         edit: 'Edit...',
         add:  'Add',
         refresh: 'Refresh',
 
-        title: 'Repeat',
-        preview: 'Selected dates',
+        title: 'Upprepa',
+        preview: 'Valda datum',
         addDate: 'Add date',
 
-        recurrenceType: 'Repeats:',
+        recurrenceType: 'Upprepas:',
 
-        dailyInterval1: 'Repeat every:',
-        dailyInterval2: 'days',
+        dailyInterval1: 'Upprepa varje:',
+        dailyInterval2: 'dagar',
 
-        weeklyInterval1: 'Repeat every:',
-        weeklyInterval2: 'week(s)',
-        weeklyWeekdays: 'Repeat on:',
-        weeklyWeekdaysHuman: 'on:',
+        weeklyInterval1: 'Upprepa varje:',
+        weeklyInterval2: 'vecka(or)',
+        weeklyWeekdays: 'Upprepa på:',
+        weeklyWeekdaysHuman: 'på:',
 
-        monthlyInterval1: 'Repeat every:',
-        monthlyInterval2: 'month(s)',
-        monthlyDayOfMonth1: 'Day',
-        monthlyDayOfMonth1Human: 'on day',
-        monthlyDayOfMonth2: 'of the month',
-        monthlyDayOfMonth3: 'month(s)',
-        monthlyWeekdayOfMonth1: 'The',
-        monthlyWeekdayOfMonth1Human: 'on the',
+        monthlyInterval1: 'Upprepa varje:',
+        monthlyInterval2: 'månad(er)',
+        monthlyDayOfMonth1: 'Dag',
+        monthlyDayOfMonth1Human: 'på dag',
+        monthlyDayOfMonth2: 'i månaden',
+        monthlyDayOfMonth3: 'månad(er)',
+        monthlyWeekdayOfMonth1: 'Den',
+        monthlyWeekdayOfMonth1Human: 'på ',
         monthlyWeekdayOfMonth2: '',
-        monthlyWeekdayOfMonth3: 'of the month',
-        monthlyRepeatOn: 'Repeat on:',
+        monthlyWeekdayOfMonth3: 'i månaden',
+        monthlyRepeatOn: 'Upprepa på:',
 
-        yearlyInterval1: 'Repeat every:',
-        yearlyInterval2: 'year(s)',
-        yearlyDayOfMonth1: 'Every',
-        yearlyDayOfMonth1Human: 'on',
+        yearlyInterval1: 'Upprepa varje:',
+        yearlyInterval2: 'år',
+        yearlyDayOfMonth1: 'Varje',
+        yearlyDayOfMonth1Human: 'på',
         yearlyDayOfMonth2: '',
         yearlyDayOfMonth3: '',
-        yearlyWeekdayOfMonth1: 'The',
-        yearlyWeekdayOfMonth1Human: 'on the',
+        yearlyWeekdayOfMonth1: 'Den',
+        yearlyWeekdayOfMonth1Human: 'på ',
         yearlyWeekdayOfMonth2: '',
-        yearlyWeekdayOfMonth3: 'of',
+        yearlyWeekdayOfMonth3: 'i',
         yearlyWeekdayOfMonth4: '',
-        yearlyRepeatOn: 'Repeat on:',
+        yearlyRepeatOn: 'Upprepa på:',
 
-        range: 'End recurrence:',
-        rangeNoEnd: 'Never',
-        rangeByOccurrences1: 'After',
-        rangeByOccurrences1Human: 'ends after',
-        rangeByOccurrences2: 'occurrence(s)',
-        rangeByEndDate: 'On',
-        rangeByEndDateHuman: 'ends on',
+        range: 'Sluta upprepa:',
+        rangeNoEnd: 'Aldrig',
+        rangeByOccurrences1: 'Efter',
+        rangeByOccurrences1Human: 'slutar efter',
+        rangeByOccurrences2: 'upprepningar',
+        rangeByEndDate: 'på',
+        rangeByEndDateHuman: 'slutar på',
 
-        including: ', and also',
-        except: ', except for',
+        including: ', samt ',
+        except: ', förutom',
 
-        cancel: 'Cancel',
-        save: 'Save',
+        cancel: 'Avbryt',
+        save: 'Spara',
 
-        recurrenceStart: 'Start of the recurrence',
+        recurrenceStart: 'Börja upprepning',
         additionalDate: 'Additional date',
         include: 'Include',
         exclude: 'Exclude',
         remove: 'Remove',
 
-        orderIndexes: ['first', 'second', 'third', 'fourth', 'last'],
+        orderIndexes: ['första', 'andra', 'tredje', 'fjärde', 'sista'],
         months: [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'],
+            'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+            'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
         shortMonths: [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
         weekdays: [
-            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-            'Friday', 'Saturday'],
+            'Söndagen', 'Måndagen', 'Tisdagen', 'Onsdagen', 'Torsdagen',
+            'Fredagen', 'Lördagen'],
         shortWeekdays: [
-            'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            'Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
 
         longDateFormat: 'mmmm dd, yyyy',
         shortDateFormat: 'mm/dd/yyyy',
@@ -195,18 +184,17 @@
         noRule: 'No RRULE in RRULE data',
         noRepeatEvery: 'Error: The "Repeat every"-field must be between 1 and 1000',
         noEndDate: 'Error: End date is not set. Please set a correct value',
-        noRepeatOn: 'Error: "Repeat on"-value must be selected',
+        noRepeatOn: 'Fel: "Upprepa på måste väljas',
         pastEndDate: 'Error: End date cannot be before start date',
         noEndAfterNOccurrences: 'Error: The "After N occurrences"-field must be between 1 and 1000',
         alreadyAdded: 'This date was already added',
 
         rtemplate: {
-            daily: 'Daily',
-            mondayfriday: 'Monday and Friday',
-            weekdays: 'Weekday',
-            weekly: 'Weekly',
-            monthly: 'Monthly',
-            yearly: 'Yearly'
+            daily: 'Dagligen',
+            weekdays: 'Mån-Fre',
+            weekly: 'Veckovis',
+            monthly: 'Månadsvis',
+            yearly: 'Årligen'
         }
     });
 
@@ -255,6 +243,7 @@
             '{{/each}}',
         '</div></div>'].join('\n');
 
+    
     $.template('occurrenceTmpl', OCCURRENCETMPL);
 
     var DISPLAYTMPL = ['<div class="ridisplay">',
@@ -262,18 +251,13 @@
             '{{if !readOnly}}',
                 '<input type="checkbox" name="richeckbox" />',
             '{{/if}}',
-            '<label class="ridisplay">${i18n.displayUnactivate}</label>',
-            '{{if !readOnly}}',
-                '<a href="#" name="riedit">${i18n.edit}</a>',
-            '{{/if}}',
-        '</div>',
-        '<div class="rioccurrences" style="display:none" /></div>'].join('\n');
+            '<label class="ridisplay">${i18n.displayUnactivate}</label>',            
+        '</div>'].join('\n');
 
     $.template('displayTmpl', DISPLAYTMPL);
 
-    var FORMTMPL = ['<div class="riform">',
-            '<form>',
-                '<h1>${i18n.title}</h1>',
+    var FORMTMPL = ['<div id="riform" class="riform">',
+            '<form>',                
                 '<div id="messagearea" style="display: none;">',
                 '</div>',
                 '<div id="rirtemplate">',
@@ -337,7 +321,7 @@
                     '<div id="rimonthlyoptions" class="rifield">',
                         '<label for="rimonthlytype" class="label">${i18n.monthlyRepeatOn}</label>',
                         '<div class="field">',
-                            '<div>',
+                            '<div class="leftalign">',
                                 '<input',
                                     'type="radio"',
                                     'value="DAYOFMONTH"',
@@ -391,7 +375,7 @@
                     '<div id="riyearlyoptions" class="rifield">',
                         '<label for="riyearlyType" class="label">${i18n.yearlyRepeatOn}</label>',
                         '<div class="field">',
-                            '<div>',
+                            '<div class="leftalign">',
                                 '<input',
                                     'type="radio"',
                                     'value="DAYOFMONTH"',
@@ -448,17 +432,7 @@
                     '</div>',
                     '<div id="rirangeoptions" class="rifield">',
                         '<label class="label">${i18n.range}</label>',
-                        '<div class="field">',
-                            '<div>',
-                                '<input',
-                                    'type="radio"',
-                                    'value="NOENDDATE"',
-                                    'name="rirangetype"',
-                                    'id="${name}rangetype:NOENDDATE"/>',
-                                '<label for="${name}rangetype:NOENDDATE">',
-                                    '${i18n.rangeNoEnd}',
-                                '</label>',
-                            '</div>',
+                        '<div class="field">',                            
                             '<div>',
                                 '<input',
                                     'type="radio"',
@@ -491,34 +465,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
-                '<div class="rioccurrencesactions">',
-                    '<div class="rioccurancesheader">',
-                        '<h2>${i18n.preview}</h2>',
-                        '<span class="refreshbutton action">',
-                            '<a class="rirefreshbutton" href="#" title="${i18n.refresh}">',
-                                '${i18n.refresh}',
-                            '</a>',
-                        '</span>',
-                    '</div>',
-                '</div>',
-                '<div class="rioccurrences">',
-                '</div>',
-                '<div class="rioccurrencesactions">',
-                    '<div class="rioccurancesheader">',
-                        '<h2>${i18n.addDate}</h2>',
-                    '</div>',
-                    '<div class="riaddoccurrence">',
-                        '<div class="errorarea"></div>',
-                        '<input type="date" name="adddate" id="adddate" />',
-                        '<input type="button" name="addaction" id="addaction" value="${i18n.add}">',
-                    '</div>',
-                '</div>',
-
-                '<div class="ributtons">',
-                    '<input',
-                        'type="submit"',
-                        'class="ricancelbutton ${ributtonExtraClass}"',
-                        'value="${i18n.cancel}" />',
+                '<div class="ributtons">',                    
                     '<input',
                         'type="submit"',
                         'class="risavebutton ${ributtonExtraClass}"',
@@ -570,6 +517,7 @@
      * Parsing RFC5545 from widget
      */
     function widgetSaveToRfc5545(form, conf, tz) {
+    	
         var value = form.find('select[name=rirtemplate]').val();
         var rtemplate = conf.rtemplate[value];
         var result = rtemplate.rrule;
@@ -773,6 +721,7 @@
             });
             result = result + '\nRDATE:' + tmp;
         }
+        alert('result:'+result);
         return {result: result, description: human};
     }
 
@@ -1099,6 +1048,7 @@
 
         var self = this;
         var form, display;
+        
 
         // Extend conf with non-configurable data used by templates.
         var orderedWeekdays = [];
@@ -1120,11 +1070,17 @@
         // The recurrence type dropdown should show certain fields depending
         // on selection:
         function displayFields(selector) {
+        
+        	//alert('disp:'+alert(JSON.stringify(selector, null, '\t')));
+        	
             var i;
             // First hide all the fields
             form.find('.rifield').hide();
             // Then show the ones that should be shown.
             var value = selector.val();
+            
+        //    alert('value:'+value);
+            
             if (value) {
                 var rtemplate = conf.rtemplate[value];
                 for (i = 0; i < rtemplate.fields.length; i++) {
@@ -1133,6 +1089,7 @@
             }
         }
 
+        /*
         function occurrenceExclude(event) {
             event.preventDefault();
             if (form.ical.EXDATE === undefined) {
@@ -1163,7 +1120,9 @@
                 $(this).remove();
             });
         }
+        */
 
+/*        
         function occurrenceAdd(event) {
             event.preventDefault();
             var dateinput = form
@@ -1198,10 +1157,12 @@
                 errorarea.text(conf.i18n.alreadyAdded).show();
             }
         }
-
+*/
         // element is where to find the tag in question. Can be the form
         // or the display widget. Defaults to the form.
-        function loadOccurrences(startdate, rfc5545, start, readonly) {
+    
+        /*
+        	function loadOccurrences(startdate, rfc5545, start, readonly) {
             var element, occurrenceDiv;
 
             if (!readonly) {
@@ -1279,13 +1240,13 @@
                     element.find('.rioccurrences').show();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus);
+                    //alert(textStatus);
                 }
             };
 
-            $.ajax(dict);
+           // $.ajax(dict);
         }
-
+*/
         function getField(field) {
             // See if it is a field already
             var realField = $(field);
@@ -1312,9 +1273,9 @@
                         startdate = startField.text();
                     }
                 } else {
-                    // Yes it was, get the date:
+                	// Yes it was, get the date:
                     startdate = startdate.getValue();
-                }
+                	}
             } else if (conf.startFieldYear &&
                        conf.startFieldMonth &&
                        conf.startFieldDay) {
@@ -1421,12 +1382,17 @@
             label.text(conf.i18n.displayActivate + ' ' + RFC5545.description);
             textarea.val(RFC5545.result);
             var startdate = findStartDate();
+            form.show();
+           /*
             if (startdate !== null) {
                 loadOccurrences(startdate, widgetSaveToRfc5545(form, conf, false).result, 0, true);
             }
+            */
         }
 
         function recurrenceOff() {
+        	//alert('recurrenceOff()');
+        	form.hide();
             var label = display.find('label[class=ridisplay]');
             label.text(conf.i18n.displayUnactivate);
             textarea.val('');
@@ -1539,7 +1505,7 @@
             // if no field errors, process the request
             if (checkFields(form)) {
                 // close overlay
-                form.overlay().close();
+         //       form.overlay().close();
                 // check checkbox
                 display.find('input[name=richeckbox]')
                     .attr('checked', true);
@@ -1549,11 +1515,12 @@
 
         function cancel(event) {
             event.preventDefault();
+            alert('cancel');
             // close overlay
             form.overlay().close();
         }
 
-        function updateOccurances() {
+     /*   function updateOccurances() {
             var startDate;
             startDate = findStartDate();
 
@@ -1565,7 +1532,7 @@
                     false);
             }
         }
-
+*/
         /*
           Load the templates
         */
@@ -1574,17 +1541,21 @@
         form = $.tmpl('formTmpl', conf);
 
         // Make an overlay and hide it
-        form.overlay(conf.formOverlay).hide();
+        //form.overlay(conf.formOverlay).hide();
+
         form.ical = {RDATE: [], EXDATE: []};
 
+        /*
         $.tools.dateinput.localize(conf.lang,  {
             months:      LABELS[conf.lang].months.join(),
             shortMonths: LABELS[conf.lang].shortMonths.join(),
             days:        LABELS[conf.lang].weekdays.join(),
             shortDays:   LABELS[conf.lang].shortWeekdays.join()
         });
+		*/
 
         // Make the date input into a calendar dateinput()
+        /*
         form.find('input[name=rirangebyenddatecalendar]').dateinput({
             selectors: true,
             lang: conf.lang,
@@ -1592,7 +1563,8 @@
             firstDay: conf.firstDay,
             yearRange: [-5, 10]
         }).data('dateinput').setValue(new Date());
-
+		*/
+        
         if (textarea.val()) {
             var result = widgetLoadFromRfc5545(form, conf, textarea.val(), false);
             if (result === -1) {
@@ -1610,6 +1582,7 @@
         // When you click on the checkbox, recurrence should toggle on/off.
         display.find('input[name=richeckbox]').click(toggleRecurrence);
 
+        
         // Show form overlay when you click on the "Edit..." link
         display.find('a[name=riedit]').click(
             function (e) {
@@ -1620,23 +1593,6 @@
             }
         );
 
-        // Pop up the little add form when clicking "Add..."
-        form.find('div.riaddoccurrence input#adddate').dateinput({
-            selectors: true,
-            lang: conf.lang,
-            format: conf.i18n.shortDateFormat,
-            firstDay: conf.firstDay,
-            yearRange: [-5, 10]
-        }).data('dateinput').setValue(new Date());
-        form.find('input#addaction').click(occurrenceAdd);
-
-        // When the reload button is clicked, reload
-        form.find('a.rirefreshbutton').click(
-            function (event) {
-                event.preventDefault();
-                updateOccurances();
-            }
-        );
 
         // When selecting template, update what fieldsets are visible.
         form.find('select[name=rirtemplate]').change(
@@ -1679,12 +1635,14 @@
         form.find('.ricancelbutton').click(cancel);
         form.find('.risavebutton').click(save);
 
+        recurrenceOff();
         /*
          * Public API of RecurrenceInput
          */
 
         $.extend(self, {
             display: display,
+            displayFields: displayFields,
             form: form,
             loadData: loadData, //Used by tests.
             save: save //Used by tests.
@@ -1697,6 +1655,8 @@
      * jQuery plugin implementation
      */
     $.fn.recurrenceinput = function (conf) {
+    	//alert(JSON.stringify(conf, null, '\t'));
+    	
         if (this.data('recurrenceinput')) {
             // plugin already installed
             return this.data('recurrenceinput');
@@ -1709,10 +1669,20 @@
 
         // our recurrenceinput widget instance
         var recurrenceinput = new RecurrenceInput(config, this);
+       
         // hide textarea and place display widget after textarea
-        recurrenceinput.form.appendTo('body');
+        //recurrenceinput.form.appendTo('body');
+        recurrenceinput.form.insertAfter( "#repeat" );
         this.after(recurrenceinput.display);
 
+        var selector = recurrenceinput.form.find('select[name=rirtemplate]');
+        //recurrenceinput.displayFields(selector);
+        
+        
+        //recurrenceinput.loadData("RRULE:FREQ=YEARLY;BYMONTH=1;BYDAY=+1TU;COUNT=5");
+        
+        recurrenceinput.loadData("RRULE:FREQ=MONTHLY;INTERVAL=3;BYDAY=+1TH;COUNT=7");
+        
         if (this.val()) {
             recurrenceinput.display.find(
                 'input[name=richeckbox]'
@@ -1722,7 +1692,8 @@
         // hide the textarea
         this.hide();
 
-        // save the data for next call
+       
+        
         this.data('recurrenceinput', recurrenceinput);
         return recurrenceinput;
     };
